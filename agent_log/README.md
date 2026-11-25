@@ -5,3 +5,4 @@
 - [現在の要件と検討事項](requirements.md)
 - [マルチエージェントの検討環境](multi-agent-workflow.md)
 - [汎用 MOT の要件整理（提案・未承認）](../worklog/discussions/20261125-182408-mot-requirements/conclusion.md)
+- [SOT と Detection の対応付けの検討方針（承認済み）](../docs/requirements/sot-detection-evaluation.md)
