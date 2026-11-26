@@ -4,6 +4,8 @@
 
 SOT 軸の追跡と TAM の位置付けは [検討メモ](tam-proposal.md) を参照。TAM の適用方法は未決定。
 
+IO_ENV 単位の要件・仕様は [議論記録](../worklog/discussions/20261125-221359-io-env-requirements/conclusion.md) を参照。新しい提案は未承認。
+
 最終更新: 2026-11-25
 
 ## 目的
