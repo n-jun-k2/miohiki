@@ -1,5 +1,88 @@
 # miohiki
 
-複数のDetection結果やSOTを元に、なるべく依存を減らしたMOT。
+複数のDetection結果やSOTを元に、なるべく依存を減らしたMOT開発。
 
 要件の整理と検討環境については [agent_log](agent_log/README.md) を参照してください。
+
+開発作業での Agent の役割と委譲方法は [開発段階の方針](agent_log/development-agent-policy.md) を参照してください。実装担当には実行環境で利用可能な汎用 `worker` を使います。
+
+開発全体は `$flow-development`、各工程は `$wf-plan`、`$wf-implement`、`$wf-test`、`$wf-verify`、`$wf-review` を利用できます。設計には既存の `$flow-design` を使います。Skill の発見は実行環境に依存し、追加後は新しい Codex セッションが必要な場合があります。
+
+Issue、ブランチ、PR の手順は `$wf-issue`、`$wf-branch`、`$wf-pr` を利用し、Git 操作の詳細は [Git ワークフロー](.codex/guidelines/git-workflow.md) を参照してください。PR の最終承認とマージは人間が行います。
+
+## Codex での進め方
+
+リポジトリのルートで Codex を起動し、次のように Skill 名と議題を入力します。例の議題や成果物は必要なものに置き換えてください。
+
+```bash
+cd /path/to/miohiki
+codex
+```
+
+### 要件を整理する
+
+`flow-requirements` は、目的・利用者・対象範囲・機能・受け入れ条件を整理し、専門 Agent にレビューを依頼します。未決定事項はユーザーと確認し、承認前の提案は合意済み要件と区別します。
+
+```text
+$flow-requirements
+IO_ENV について、映像取得・表示・保存の要件を整理してください。
+カメラは1台以上、Linux コンテナで OpenCV を使います。
+```
+
+既存の Markdown ファイルを議題として渡すこともできます。承認済みの方針は [現在の要件と検討事項](agent_log/requirements.md) にまとめています。
+
+### 技術を調査・議論する
+
+`flow-discussion` は、指定した技術や選択肢について専門 Agent が独立検討し、相互レビューと再検討を行います。外部資料を使う場合は、出典と適用条件を確認します。
+
+```text
+$flow-discussion
+複数カメラのフレームを IO_ENV から MOT_ENV に渡す方法を調査し、
+通信量、遅延、依存関係、障害時の扱いを比較してください。
+```
+
+結論は検討材料です。性能や適用可否は、対象環境での検証とユーザーの判断を経て決めます。
+
+### 承認済み要件から設計する
+
+`flow-design` は、承認済み要件を基に責務やインターフェース、代替案と障害時の扱いを検討します。設計に必要な要件が未承認の場合は、前提と未決事項として扱います。
+
+```text
+$flow-design
+docs/requirements/sot-detection-evaluation.md を基に、
+MOT 中核と SOT 実行環境の責務とインターフェースを設計してください。
+```
+
+### 計画から実装・レビューまで進める
+
+`flow-development` は、承認済み要件の確認から設計・実装計画・Issue・実装・検証・独立レビュー・PR までを扱います。設計と計画・Issue 案は承認を確認し、承認済みの範囲で進めます。
+
+```text
+$flow-development
+承認済み要件と設計を基に、IO_ENV の映像取得機能を開発してください。
+まず対象範囲、実装計画、Issue 案を提示してください。
+```
+
+この例を実行するには、対象機能の要件と設計が承認されている必要があります。未承認の場合は、先に要件や設計を整理します。Issue 作成・push・PR 作成には対象リポジトリの権限と、その操作を含む承認が必要です。最終的な PR 承認とマージは人間が行います。
+
+### 個別の工程を依頼する
+
+必要な工程だけを取り出して依頼することもできます。各 Skill は対象となる要件・設計・計画や、その承認状態を確認します。
+
+```text
+$wf-plan 承認済み設計を基に、IO_ENV 実装のタスクと完了条件を作成してください。
+$wf-test 承認済み仕様を基に、映像保存のテストケースを整理してください。
+$wf-verify この変更に必要なテストを実行し、未検証事項も報告してください。
+$wf-review この変更を要件・設計・テストの観点から独立レビューしてください。
+$wf-issue 承認済み計画に対応する既存 Issue を調査し、起票案を作ってください。
+```
+
+実装、ブランチ、PR の工程には、それぞれ `$wf-implement`、`$wf-branch`、`$wf-pr` を使います。
+
+## 記録と成果物
+
+- `worklog/`：ユーザーと Agent のやり取りや議論の記録。専門 Agent による議論の成果物は `worklog/discussions/` に保存します。
+- `agent_log/`：現在の方針、提案、未決事項の索引。
+- `docs/requirements/`：承認済み要件。承認済み設計・判断・実装計画は必要に応じて `docs/architecture/`、`docs/decisions/`、`docs/plans/` に記録します。
+
+詳しい手順と、実際に検証済みの範囲は [マルチエージェントの検討環境](agent_log/multi-agent-workflow.md) を参照してください。

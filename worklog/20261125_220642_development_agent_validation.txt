@@ -1,0 +1,11 @@
+[日時不明] USER -> MAIN
+development-agent-policy.mdの方針でエージェント構成を更新してください。
+
+[2026-11-25 22:06:42] MAIN -> worker
+動作確認をお願いします。あなたの担当は /tmp/miohiki-worker-validation.txt のみです。ファイルに worker validation ok と1行書き、内容を読み返して結果を報告してください。他にも作業者がいるため、他者の変更を戻さず、担当外のファイルを編集しないでください。外部書き込みは行わないでください。
+
+[2026-11-25 22:07:04] worker -> MAIN
+指定された `/tmp/miohiki-worker-validation.txt` を作成し、`worker validation ok` と記載されていることを読み返して確認しました。
+
+[2026-11-25 22:07:04] MAIN -> USER
+開発段階のエージェント構成を更新しました。実装には利用可能な汎用 worker を使い、既存の専門 Agent は読み取り専用のまま設計・レビューに利用します。担当範囲と議論時の編集禁止を文書で明確化しました。TOML 7 ファイルの構文確認と worker による一時ファイルの編集・報告を確認しました。README.md には既存の改行コード差分があり、git diff --check は同ファイルの CRLF を空白として検出しました。
