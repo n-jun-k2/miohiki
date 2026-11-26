@@ -2,13 +2,26 @@
 
 複数のDetection結果やSOTを元に、なるべく依存を減らしたMOT開発。
 
+## 索引
+
+- [Codex での進め方](#codex-での進め方)：要件整理、技術調査、設計、開発の依頼例
+- [記録と成果物](#記録と成果物)：議論記録と承認済み文書の保存先
+- [共通の作業ルール](AGENTS.md)：作業方針とエージェント間のログ管理
+- [Git・ブランチ・PR のルール](.codex/guidelines/git-workflow.md)：ブランチ命名、コミット、レビュー、PR の運用
+- [ブランチ作成の手順](.agents/skills/wf-branch/SKILL.md)：作業ブランチの準備と確認事項
+- [現在の要件と検討事項](agent_log/requirements.md)：合意済み方針、提案、未決事項
+- [検討記録の一覧](agent_log/README.md)：要件・設計・開発運用に関する文書
+- [マルチエージェントの使い方](agent_log/multi-agent-workflow.md)：Skill、専門 Agent、検証済み範囲
+
 要件の整理と検討環境については [agent_log](agent_log/README.md) を参照してください。
 
 開発作業での Agent の役割と委譲方法は [開発段階の方針](agent_log/development-agent-policy.md) を参照してください。実装担当には実行環境で利用可能な汎用 `worker` を使います。
 
 開発全体は `$flow-development`、各工程は `$wf-plan`、`$wf-implement`、`$wf-test`、`$wf-verify`、`$wf-review` を利用できます。設計には既存の `$flow-design` を使います。Skill の発見は実行環境に依存し、追加後は新しい Codex セッションが必要な場合があります。
 
-Issue、ブランチ、PR の手順は `$wf-issue`、`$wf-branch`、`$wf-pr` を利用し、Git 操作の詳細は [Git ワークフロー](.codex/guidelines/git-workflow.md) を参照してください。PR の最終承認とマージは人間が行います。
+Issue、ブランチ、PR の手順は `$wf-issue`、`$wf-branch`、`$wf-pr` を利用し、Git 操作の詳細は [Git ワークフロー](.codex/guidelines/git-workflow.md) を参照してください。PR 作成前の独立レビューに加え、作成後に差分・本文・CI などを自己レビューします。PR の最終承認とマージは人間が行います。
+
+新しい作業では `main` に切り替えて `git pull --ff-only` で最新化し、そこから作業ブランチを作ります。先に変更した場合は対象を確認して stash に退避し、ブランチ作成後に復元・確認します。既存の変更や stash は保全します。
 
 ## Codex での進め方
 
