@@ -10,3 +10,4 @@
 - [開発ワークフロー構築案（承認済み）](development-workflow-proposal.md)
 - [Git・GitHub 開発ワークフロー構築案（承認済み）](git-workflow-proposal.md)
 - [IO_ENV の要件・仕様整理（提案・未承認）](../worklog/discussions/20261125-221359-io-env-requirements/conclusion.md)
+- [調査報告・文書化ワークフロー構築案（承認済み）](reporting-workflow-proposal.md)
